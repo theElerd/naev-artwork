@@ -88,6 +88,9 @@ function get_svg_code(obj, print_in_white = 'default'){
 	let fill_color = '';
 	
 	Object.keys(obj).forEach(function(info){
+		
+		const opacity = ((info == 'shadow') || (info == 'light') || (info == 'fill_light')) ? '0.3' : '1';
+		
 		if(info == 'defs'){
 			portrait_print += obj[info];
 		}
@@ -96,7 +99,7 @@ function get_svg_code(obj, print_in_white = 'default'){
 		}	
 		else if(info == 'path'){
 			fill_color = (print_in_white == 'white') ? '#fff' : 'url(#acc_grad)';
-			portrait_print += `<path class="${info}" fill="${fill_color}" d="${obj[info]}" />`;
+			portrait_print += `<path class="${info}" fill="${fill_color}" d="${obj[info]}" opacity="${opacity}" />`;
 			stamp_d += obj[info];
 		}
 		else if( Object.prototype.toString.call( obj[info] ) === '[object Object]' ){
@@ -104,9 +107,19 @@ function get_svg_code(obj, print_in_white = 'default'){
 		}
 		else {
 			const fill_value = ( swatches[print_in_white].values.face.hasOwnProperty(info) ) ? swatches[print_in_white].values.face[info] : ((swatches[print_in_white].values.hasOwnProperty(info)) ? swatches[print_in_white].values[info] : swatches['default'].values[info]);
-			fill_color = (info == 'lines') ? '000' : ((print_in_white == 'white') ? 'fff' : fill_value);
 			
-			portrait_print += `<path class="${info}" fill="#${fill_color}" d="${obj[info]}" />`;
+			fill_color = fill_value;
+			if(info == 'lines'){
+				fill_color = '000';
+			}
+			else if((print_in_white == 'white') || (info == 'light')){
+				fill_color = 'fff';
+			}
+			else if(info == 'fill_light'){
+				fill_color = '0FF';
+			}
+			
+			portrait_print += `<path class="${info}" fill="#${fill_color}" d="${obj[info]}" opacity="${opacity}" />`;
 			stamp_d += obj[info];
 		}
 	});
