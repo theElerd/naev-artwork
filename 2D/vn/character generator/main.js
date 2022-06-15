@@ -31,11 +31,13 @@ function main_print(sub_menu = 'presets', cur_id = temp_char.preset, swatch_id =
 		
 		if(color_option == 'face'){
 			Object.keys(swatches[swatch_id].values.face).forEach(function(face_color_option){
-				choose_colors += `<input id="picker_${face_color_option}" onchange="update_color('${face_color_option}', 'colors', '${cur_id}', '${swatch_id}', this)" value="#${swatches[swatch_id].values.face[face_color_option]}" type="color" title="${face_color_option}" />`;
+				choose_colors += `<label for="picker_${face_color_option}">${face_color_option}</label>
+				<input id="picker_${face_color_option}" onchange="update_color('${face_color_option}', 'colors', '${cur_id}', '${swatch_id}', this)" value="#${swatches[swatch_id].values.face[face_color_option]}" type="color" title="${face_color_option}" />`;
 			});
 		}
 		else if(color_option != 'acc_path'){
-			choose_colors += `<input id="picker_${color_option}" onchange="update_color('${color_option}', 'colors', '${cur_id}', '${swatch_id}', this)" value="#${swatches[swatch_id].values[color_option]}" type="color" title="${color_option}" />`;
+			choose_colors += `<label for="picker_${color_option}">${color_option}</label>
+				<input id="picker_${color_option}" onchange="update_color('${color_option}', 'colors', '${cur_id}', '${swatch_id}', this)" value="#${swatches[swatch_id].values[color_option]}" type="color" title="${color_option}" />`;
 		}
 	});
 	

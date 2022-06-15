@@ -32,14 +32,18 @@ body{
     background-color:#989898;
     
     .preset{
-        width:200px;
-        height:284px;
+        //width:200px;
+        //height:284px;
+        width: 140px;
+        height: 195px;
         position: relative;
+        cursor: pointer;
         &>svg{
             width:100%;
             position: absolute;
             left:0;
             top:0;
+            pointer-events: none;
         }
     }
     #swatches,
